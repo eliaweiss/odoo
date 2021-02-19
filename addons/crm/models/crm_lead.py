@@ -77,6 +77,10 @@ class Lead(models.Model):
         team = self._default_team_id(user_id=self.env.uid)
         return self._stage_find(team_id=team.id, domain=[('fold', '=', False)]).id
 
+    @api.model
+    def _get_default_currency(self):
+        return self.env.company.currency_id
+
     name = fields.Char('Opportunity', required=True, index=True)
     partner_id = fields.Many2one('res.partner', string='Customer', tracking=10, index=True,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]", help="Linked partner (optional). Usually created when converting the lead. You can find a partner by its Name, TIN, Email or Internal Reference.")
@@ -130,7 +134,12 @@ class Lead(models.Model):
     partner_address_email = fields.Char('Partner Contact Email', related='partner_id.email', readonly=True)
     partner_address_phone = fields.Char('Partner Contact Phone', related='partner_id.phone', readonly=True)
     partner_is_blacklisted = fields.Boolean('Partner is blacklisted', related='partner_id.is_blacklisted', readonly=True)
-    company_currency = fields.Many2one(string='Currency', related='company_id.currency_id', readonly=True, relation="res.currency")
+    company_currency = fields.Many2one('res.currency', store=True, readonly=False, tracking=True, required=True,
+        default=_get_default_currency)
+    # company_currency = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
+    #     states={'draft': [('readonly', False)]},
+    #     string='Currency',
+    #     default=_get_default_currency)    
     user_email = fields.Char('User Email', related='user_id.email', readonly=True)
     user_login = fields.Char('User Login', related='user_id.login', readonly=True)
 
