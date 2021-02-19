@@ -3106,7 +3106,7 @@ msgstr "טוען..."
 #: model_terms:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 #, python-format
 msgid "Log"
-msgstr "כתוב"
+msgstr "שמור"
 
 #. module: mail
 #. openerp-web

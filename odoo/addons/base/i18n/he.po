@@ -15954,7 +15954,7 @@ msgstr "לוקליזציה"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.ir_logging_form_view
 msgid "Log"
-msgstr "כתוב"
+msgstr "שמור"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_logging_all_act
