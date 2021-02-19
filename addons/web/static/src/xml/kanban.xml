@@ -107,7 +107,7 @@
 
 <t t-name="KanbanView.ColumnProgressBar">
     <div class="o_kanban_counter">
-        <div class="o_kanban_counter_progress progress">
+        <div class="o_kanban_counter_progress progress tst1">
             <t t-foreach="widget.colors" t-as="color">
                 <t t-set="count" t-value="widget.subgroupCounts and widget.subgroupCounts[color] or 0"/>
                 <div t-attf-class="progress-bar transition-off bg-#{color_value}-full#{count ? ' o_bar_has_records' : ''}#{widget.activeFilter ? ' progress-bar-animated progress-bar-striped' : ''}"

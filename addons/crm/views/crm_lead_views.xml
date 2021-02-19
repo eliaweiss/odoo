@@ -84,8 +84,8 @@
                                 <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}">
                                     <label for="planned_revenue" class="oe_edit_only" />
                                     <div class="o_row">
-                                        <field name="company_currency" groups="base.group_multi_currency"/>
-                                        <field name="planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+                                        <field name="revenue_currency"/>
+                                        <field name="planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'revenue_currency'}"/>
                                         <span class="oe_grey p-2"> at </span>
                                     </div>
                                 </div>
@@ -416,8 +416,8 @@
                     <group>
                         <field name="name" string="Name"/>
                         <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_vat': True}"/>
-                        <field name="planned_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
-                        <field name="company_currency" groups="base.group_multi_currency"/>
+                        <field name="planned_revenue" widget="monetary" options="{'currency_field': 'revenue_currency'}"/>
+                        <field name="revenue_currency"/>
                         <field name="company_id" invisible="1"/>
                         <field name="priority" nolabel="1" widget="priority"/>
                     </group>
@@ -431,7 +431,7 @@
             <field name="arch" type="xml">
                 <activity string="Leads or Opportunities">
                     <field name="user_id"/>
-                    <field name="company_currency"/>
+                    <field name="revenue_currency"/>
                     <templates>
                         <div t-name="activity-box">
                             <img t-att-src="activity_image('res.users', 'image_128', record.user_id.raw_value)" t-att-title="record.user_id.value" t-att-alt="record.user_id.value"/>
@@ -465,7 +465,7 @@
                     <field name="partner_id"/>
                     <field name="activity_summary"/>
                     <field name="active"/>
-                    <field name="company_currency"/>
+                    <field name="revenue_currency"/>
                     <field name="activity_state" />
                     <field name="activity_ids" />
                     <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' sum_field="planned_revenue" help="This bar allows to filter the opportunities based on scheduled activities."/>
@@ -491,7 +491,7 @@
                                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                     </div>
                                     <div class="text-muted o_kanban_record_subtitle">
-                                        <t t-if="record.planned_revenue.raw_value"><field name="planned_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/><span t-if="record.partner_id.value">,</span></t> <span t-if="record.partner_id.value"> <t t-esc="record.partner_id.value"/></span>
+                                        <t t-if="record.planned_revenue.raw_value"><field name="planned_revenue" widget="monetary" options="{'currency_field': 'revenue_currency'}"/><span t-if="record.partner_id.value">,</span></t> <span t-if="record.partner_id.value"> <t t-esc="record.partner_id.value"/></span>
                                     </div>
 
                                     <div class="o_kanban_record_bottom">

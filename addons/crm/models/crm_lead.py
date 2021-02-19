@@ -126,20 +126,17 @@ class Lead(models.Model):
         ('incorrect', 'Incorrect')], string='Email Quality', compute="_compute_email_state", store=True)
 
     # Only used for type opportunity
-    planned_revenue = fields.Monetary('Expected Revenue', currency_field='company_currency', tracking=True)
-    expected_revenue = fields.Monetary('Prorated Revenue', currency_field='company_currency', store=True, compute="_compute_expected_revenue")
+    planned_revenue = fields.Monetary('Expected Revenue', currency_field='revenue_currency', tracking=True)
+    expected_revenue = fields.Monetary('Prorated Revenue', currency_field='revenue_currency', store=True, compute="_compute_expected_revenue")
     date_deadline = fields.Date('Expected Closing', help="Estimate of the date on which the opportunity will be won.")
     color = fields.Integer('Color Index', default=0)
     partner_address_name = fields.Char('Partner Contact Name', related='partner_id.name', readonly=True)
     partner_address_email = fields.Char('Partner Contact Email', related='partner_id.email', readonly=True)
     partner_address_phone = fields.Char('Partner Contact Phone', related='partner_id.phone', readonly=True)
     partner_is_blacklisted = fields.Boolean('Partner is blacklisted', related='partner_id.is_blacklisted', readonly=True)
-    company_currency = fields.Many2one('res.currency', store=True, readonly=False, tracking=True, required=True,
+    revenue_currency = fields.Many2one('res.currency', store=True, readonly=False, tracking=True, required=True,
         default=_get_default_currency)
-    # company_currency = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
-    #     states={'draft': [('readonly', False)]},
-    #     string='Currency',
-    #     default=_get_default_currency)    
+   
     user_email = fields.Char('User Email', related='user_id.email', readonly=True)
     user_login = fields.Char('User Login', related='user_id.login', readonly=True)
 
